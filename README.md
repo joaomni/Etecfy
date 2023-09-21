@@ -1,2 +1,2 @@
-# Etecfy2
-npm i
+# Etecfy
+Nunjucks
