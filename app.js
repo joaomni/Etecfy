@@ -89,7 +89,7 @@ app.post('/cadastro', (req, res) => {
       }
 
       // Redirecione para a página de sucesso, passando os dados como parâmetros na URL
-      res.redirect(`/sucesso?linkUnico=${linkUnico}`);
+      res.redirect(`/sucesso?linkUnico=${row.linkUnico}`);
     });
   });
 });
@@ -124,19 +124,13 @@ app.get('/divulgar/:linkDivulgado', (req, res) => {
 app.post('/divulgar', (req, res) => {
   const { nome, email, telefone, cpf, comunicacoes, link } = req.body;
 
-  console.log(link)
-
   // Execute um SELECT para obter os dados da pessoa com base no linkUnico
   db.get("SELECT * FROM inscritos WHERE linkUnico = ?", [link], (err, row) => {
     if (err) {
       throw err;
-      console.log("erro: " + err)
     }
 
-    console.log("Total divulgados" + row.totalDivulgados + 1)
-
     if (row) {
-      console.log("Total divulgados" + row.totalDivulgados + 1)
       db.run(
         'UPDATE inscritos SET totalDivulgados = totalDivulgados + 1 WHERE linkUnico = ?',
         [link],
@@ -176,7 +170,7 @@ app.post('/divulgar', (req, res) => {
       }
 
       // Redirecione para a página de sucesso, passando os dados como parâmetros na URL
-      res.redirect(`/sucesso?linkUnico=${linkUnico}`);
+      res.redirect(`/sucesso?linkUnico=${row.linkUnico}`);
     });
   });
 });
